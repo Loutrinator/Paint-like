@@ -1,0 +1,85 @@
+The system is: Windows - 10.0.18363 - AMD64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: D:/Programmes/Microsoft Visual Studio/2017/Enterprise/VC/Tools/MSVC/14.15.26726/bin/Hostx64/x64/cl.exe 
+Build flags: 
+Id flags:  
+
+The output was:
+0
+Compilateur d'optimisation Microsoft (R) C/C++ version 19.15.26730 pour x64
+Copyright (C) Microsoft Corporation. Tous droits réservés.
+
+CMakeCCompilerId.c
+Microsoft (R) Incremental Linker Version 14.15.26730.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+/out:CMakeCCompilerId.exe 
+CMakeCCompilerId.obj 
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.exe"
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CMakeCCompilerId.obj"
+
+The C compiler identification is MSVC, found in "D:/0-Workspace/CLion/Paint-like/cmake-build-debug/CMakeFiles/3.17.3/CompilerIdC/CMakeCCompilerId.exe"
+
+Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+Compiler: D:/Programmes/Microsoft Visual Studio/2017/Enterprise/VC/Tools/MSVC/14.15.26726/bin/Hostx64/x64/cl.exe 
+Build flags: 
+Id flags:  
+
+The output was:
+0
+Compilateur d'optimisation Microsoft (R) C/C++ version 19.15.26730 pour x64
+Copyright (C) Microsoft Corporation. Tous droits réservés.
+
+CMakeCXXCompilerId.cpp
+Microsoft (R) Incremental Linker Version 14.15.26730.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+/out:CMakeCXXCompilerId.exe 
+CMakeCXXCompilerId.obj 
+
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.exe"
+
+Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CMakeCXXCompilerId.obj"
+
+The CXX compiler identification is MSVC, found in "D:/0-Workspace/CLion/Paint-like/cmake-build-debug/CMakeFiles/3.17.3/CompilerIdCXX/CMakeCXXCompilerId.exe"
+
+Determining if the C compiler works passed with the following output:
+Change Dir: D:/0-Workspace/CLion/Paint-like/cmake-build-debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):nmake /nologo cmTC_9f32d\fast && 	"D:\Programmes\Microsoft Visual Studio\2017\Enterprise\VC\Tools\MSVC\14.15.26726\bin\HostX64\x64\nmake.exe"  -f CMakeFiles\cmTC_9f32d.dir\build.make /nologo -L                  CMakeFiles\cmTC_9f32d.dir\build
+Building C object CMakeFiles/cmTC_9f32d.dir/testCCompiler.c.obj
+	"D:\Programmes\Microsoft Visual Studio\2017\Enterprise\VC\Tools\MSVC\14.15.26726\bin\Hostx64\x64\cl.exe" @C:\Users\Antoine\AppData\Local\Temp\nm6A5E.tmp
+testCCompiler.c
+Linking C executable cmTC_9f32d.exe
+	C:\Users\Antoine\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\202.7660.37\bin\cmake\win\bin\cmake.exe -E vs_link_exe --intdir=CMakeFiles\cmTC_9f32d.dir --rc=C:\PROGRA~2\WI3CF2~1\10\bin\100183~1.0\x64\rc.exe --mt=C:\PROGRA~2\WI3CF2~1\10\bin\100183~1.0\x64\mt.exe --manifests  -- "D:\Programmes\Microsoft Visual Studio\2017\Enterprise\VC\Tools\MSVC\14.15.26726\bin\Hostx64\x64\link.exe" /nologo @CMakeFiles\cmTC_9f32d.dir\objects1.rsp @C:\Users\Antoine\AppData\Local\Temp\nm6C73.tmp
+
+
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: D:/0-Workspace/CLion/Paint-like/cmake-build-debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):nmake /nologo cmTC_843e3\fast && 	"D:\Programmes\Microsoft Visual Studio\2017\Enterprise\VC\Tools\MSVC\14.15.26726\bin\HostX64\x64\nmake.exe"  -f CMakeFiles\cmTC_843e3.dir\build.make /nologo -L                  CMakeFiles\cmTC_843e3.dir\build
+Building C object CMakeFiles/cmTC_843e3.dir/CMakeCCompilerABI.c.obj
+	"D:\Programmes\Microsoft Visual Studio\2017\Enterprise\VC\Tools\MSVC\14.15.26726\bin\Hostx64\x64\cl.exe" @C:\Users\Antoine\AppData\Local\Temp\nm723E.tmp
+CMakeCCompilerABI.c
+Linking C executable cmTC_843e3.exe
+	C:\Users\Antoine\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\202.7660.37\bin\cmake\win\bin\cmake.exe -E vs_link_exe --intdir=CMakeFiles\cmTC_843e3.dir --rc=C:\PROGRA~2\WI3CF2~1\10\bin\100183~1.0\x64\rc.exe --mt=C:\PROGRA~2\WI3CF2~1\10\bin\100183~1.0\x64\mt.exe --manifests  -- "D:\Programmes\Microsoft Visual Studio\2017\Enterprise\VC\Tools\MSVC\14.15.26726\bin\Hostx64\x64\link.exe" /nologo @CMakeFiles\cmTC_843e3.dir\objects1.rsp @C:\Users\Antoine\AppData\Local\Temp\nm72DB.tmp
+
+
+
+Determining if the CXX compiler works passed with the following output:
+Change Dir: D:/0-Workspace/CLion/Paint-like/cmake-build-debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):nmake /nologo cmTC_2fc8d\fast && 	"D:\Programmes\Microsoft Visual Studio\2017\Enterprise\VC\Tools\MSVC\14.15.26726\bin\HostX64\x64\nmake.exe"  -f CMakeFiles\cmTC_2fc8d.dir\build.make /nologo -L                  CMakeFiles\cmTC_2fc8d.dir\build
+Building CXX object CMakeFiles/cmTC_2fc8d.dir/testCXXCompiler.cxx.obj
+	"D:\Programmes\Microsoft Visual Studio\2017\Enterprise\VC\Tools\MSVC\14.15.26726\bin\Hostx64\x64\cl.exe" @C:\Users\Antoine\AppData\Local\Temp\nm76E2.tmp
+testCXXCompiler.cxx
+Linking CXX executable cmTC_2fc8d.exe
+	C:\Users\Antoine\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\202.7660.37\bin\cmake\win\bin\cmake.exe -E vs_link_exe --intdir=CMakeFiles\cmTC_2fc8d.dir --rc=C:\PROGRA~2\WI3CF2~1\10\bin\100183~1.0\x64\rc.exe --mt=C:\PROGRA~2\WI3CF2~1\10\bin\100183~1.0\x64\mt.exe --manifests  -- "D:\Programmes\Microsoft Visual Studio\2017\Enterprise\VC\Tools\MSVC\14.15.26726\bin\Hostx64\x64\link.exe" /nologo @CMakeFiles\cmTC_2fc8d.dir\objects1.rsp @C:\Users\Antoine\AppData\Local\Temp\nm778E.tmp
+
+
+
