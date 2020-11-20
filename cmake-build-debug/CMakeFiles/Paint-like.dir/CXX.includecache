@@ -62,9 +62,31 @@ GL/glext.h
 GL/glu.h
 -
 
-D:/0-Workspace/CLion/Paint-like/src/main.cpp
+D:/Documents/Projets/Paint-like/src/imconfig.h
+
+D:/Documents/Projets/Paint-like/src/imgui.h
+imconfig.h
+D:/Documents/Projets/Paint-like/src/imconfig.h
+float.h
+-
+stdarg.h
+-
+stddef.h
+-
+string.h
+-
+assert.h
+-
+stdint.h
+-
+imgui_user.h
+D:/Documents/Projets/Paint-like/src/imgui_user.h
+
+D:/Documents/Projets/Paint-like/src/main.cpp
 glad/glad.h
 -
 GLFW/glfw3.h
 -
+imgui.h
+D:/Documents/Projets/Paint-like/src/imgui.h
 

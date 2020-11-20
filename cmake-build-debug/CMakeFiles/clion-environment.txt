@@ -1,4 +1,4 @@
-ToolSet: 15.0 (local)@D:\Programmes\Microsoft Visual Studio\2017\Enterprise
+ToolSet: 16.0 (local)@D:\Applications\Microsoft\VisualStudio\Community
 Options: msvc.arch=amd64
 
 Options:

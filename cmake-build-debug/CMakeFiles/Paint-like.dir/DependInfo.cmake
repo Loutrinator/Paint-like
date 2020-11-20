@@ -5,7 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
-  "D:/0-Workspace/CLion/Paint-like/vendor/glad/src/glad.c" "D:/0-Workspace/CLion/Paint-like/cmake-build-debug/CMakeFiles/Paint-like.dir/vendor/glad/src/glad.c.obj"
+  "D:/Documents/Projets/Paint-like/vendor/glad/src/glad.c" "D:/Documents/Projets/Paint-like/cmake-build-debug/CMakeFiles/Paint-like.dir/vendor/glad/src/glad.c.obj"
   )
 set(CMAKE_C_COMPILER_ID "MSVC")
 
@@ -15,7 +15,7 @@ set(CMAKE_C_TARGET_INCLUDE_PATH
   "../vendor/glfw-3.3.2/include"
   )
 set(CMAKE_DEPENDS_CHECK_CXX
-  "D:/0-Workspace/CLion/Paint-like/src/main.cpp" "D:/0-Workspace/CLion/Paint-like/cmake-build-debug/CMakeFiles/Paint-like.dir/src/main.cpp.obj"
+  "D:/Documents/Projets/Paint-like/src/main.cpp" "D:/Documents/Projets/Paint-like/cmake-build-debug/CMakeFiles/Paint-like.dir/src/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "MSVC")
 
