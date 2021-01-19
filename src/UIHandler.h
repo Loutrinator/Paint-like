@@ -9,6 +9,7 @@
 class UIHandler {
 public:
     UIHandler(Settings* settings, GLFWwindow* window);
+    ~UIHandler();
     void update();
     void render();
 
