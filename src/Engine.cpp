@@ -3,11 +3,30 @@
 #include "Engine.h"
 #include "ShapeRegistry.h"
 
-Engine::Engine(int width, int height, bool debug):
-_imGuiContext(ImGui::CreateContext())
+void messageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam)
+{
+	switch (severity)
+	{
+		case GL_DEBUG_SEVERITY_HIGH:
+			std::cout << "ERROR " << id << ": " << message << std::endl;
+			//if (IsDebuggerPresent())
+			//	__debugbreak();
+			break;
+		case GL_DEBUG_SEVERITY_MEDIUM:
+			std::cout << "WARNING " << id << ": " << message << std::endl;
+			break;
+		case GL_DEBUG_SEVERITY_LOW:
+			std::cout << "INFO " << id << ": " << message << std::endl;
+			break;
+	}
+}
+
+Engine::Engine(int width, int height, bool debug)
 {
 	glfwInit();
 	initWindow(width, height, debug);
+	
+	_uiHandler = std::make_unique<UIHandler>(&_settings, _window);
 	
 	std::cout << "Driver: " << glGetString(GL_VERSION) << "\n";
 	std::cout << "GPU: " << glGetString(GL_RENDERER) << "\n";
@@ -16,13 +35,9 @@ _imGuiContext(ImGui::CreateContext())
 	{
 		activateDebugMode();
 	}
-
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-
-	glfwSetCursorPosCallback(window, mouse_callback);
 	
-	ImGui::SetCurrentContext(_imGuiContext);
-    //ImGui::StyleColorsDark();
+	_renderer = std::make_unique<Renderer>(glm::ivec2(width, height));
+	
 }
 
 Engine::~Engine()
@@ -34,7 +49,7 @@ void Engine::initWindow(int width, int height, bool debug)
 {
 	
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	if (debug)
 	{
@@ -55,24 +70,6 @@ void Engine::initWindow(int width, int height, bool debug)
 	}
 }
 
-void messageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam)
-{
-	switch (severity)
-	{
-		case GL_DEBUG_SEVERITY_HIGH:
-			std::cout << "ERROR " << id << ": " << message << std::endl;
-			//if (IsDebuggerPresent())
-			//	__debugbreak();
-			break;
-		case GL_DEBUG_SEVERITY_MEDIUM:
-			std::cout << "WARNING " << id << ": " << message << std::endl;
-			break;
-		case GL_DEBUG_SEVERITY_LOW:
-			std::cout << "INFO " << id << ": " << message << std::endl;
-			break;
-	}
-}
-
 void Engine::activateDebugMode()
 {
 	glEnable(GL_DEBUG_OUTPUT);
@@ -89,25 +86,15 @@ void Engine::run()
 		
 		//rendering
 		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-
 		glClear(GL_COLOR_BUFFER_BIT);
 
-        _uiHandler.update();
-        _uiHandler.render();
+        _uiHandler->update();
+        _uiHandler->render();
 
+		
+		_renderer->render(_registry);
+		
 		//swap
 		glfwSwapBuffers(_window); //échange les deux buffers (back buffer = tu fais ton rendu, front buffer = ton image affichée)
 	}
-}
-
-std::unique_ptr<Engine> Engine::instance = std::make_unique<Engine>();
-
-
-Engine::Engine() : _settings(), _uiHandler(&_settings, window) {
-	deltaTime = 0.0f;
-	lastFrame = glfwGetTime();
-}
-
-void Engine::terminate() {
-	glfwTerminate();
 }

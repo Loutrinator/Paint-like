@@ -6,6 +6,7 @@
 #include <imgui_internal.h>
 #include <memory>
 #include "UIHandler.h"
+#include "Renderer.h"
 
 class Engine {
 public:
@@ -17,8 +18,12 @@ private:
 	void activateDebugMode();
 	void initWindow(int width, int height, bool debug);
 	
+	std::unique_ptr<Renderer> _renderer;
+	
+	ShapeRegistry _registry;
+	
 	GLFWwindow* _window;
 
-	UIHandler _uiHandler;
+	std::unique_ptr<UIHandler> _uiHandler;
 	Settings _settings;
 };
