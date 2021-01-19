@@ -1,5 +1,6 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "UIHandler.h"
+#include "Tool/ITool.h"
 
 UIHandler::UIHandler(Context* context, GLFWwindow* window):
 _context(context), _imGuiContext(ImGui::CreateContext())
@@ -36,6 +37,8 @@ void UIHandler::update()
 	    
         ImGui::End();
     }
+    
+    _context->getCurrentTool()->drawUI();
 }
 
 void UIHandler::render() {
