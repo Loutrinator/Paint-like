@@ -1,6 +1,9 @@
+#include <glm/gtc/type_ptr.hpp>
 #include "UIHandler.h"
 
-UIHandler::UIHandler(Settings* settings, GLFWwindow* window) : _settings(settings), _imGuiContext(ImGui::CreateContext()){
+UIHandler::UIHandler(Context* context, GLFWwindow* window):
+_context(context), _imGuiContext(ImGui::CreateContext())
+{
     ImGui::SetCurrentContext(_imGuiContext);
 
     ImGui_ImplGlfw_InitForOpenGL(window, true);
@@ -17,16 +20,21 @@ UIHandler::~UIHandler()
 	ImGui::DestroyContext(_imGuiContext);
 }
 
-void UIHandler::update() {
+void UIHandler::update()
+{
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
-    if(ImGui::BeginPopupContextWindow()){
-        if(ImGui::MenuItem("Color :")){
-            _settings->changeColor();
-        }
-        ImGui::EndPopup();
+    if(ImGui::Begin("Color"))
+    {
+	    glm::vec3 color = _context->getColor();
+	    if (ImGui::ColorPicker3("Color", glm::value_ptr(color)))
+	    {
+		    _context->setColor(color);
+	    }
+	    
+        ImGui::End();
     }
 }
 

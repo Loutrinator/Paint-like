@@ -23,7 +23,9 @@ private:
 	ShapeRegistry _registry;
 	
 	GLFWwindow* _window;
+	
+	int _lastCursorState = GLFW_RELEASE;
 
 	std::unique_ptr<UIHandler> _uiHandler;
-	Settings _settings;
+	Context _context;
 };

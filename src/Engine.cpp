@@ -26,7 +26,7 @@ Engine::Engine(int width, int height, bool debug)
 	glfwInit();
 	initWindow(width, height, debug);
 	
-	_uiHandler = std::make_unique<UIHandler>(&_settings, _window);
+	_uiHandler = std::make_unique<UIHandler>(&_context, _window);
 	
 	std::cout << "Driver: " << glGetString(GL_VERSION) << "\n";
 	std::cout << "GPU: " << glGetString(GL_RENDERER) << "\n";
@@ -83,6 +83,29 @@ void Engine::run()
 	{
 		//events
 		glfwPollEvents();// check les evenements qui ont eu lieu depuis le dernier appel de cette fonction
+		
+		//update
+		ITool* tool = _context.getCurrentTool();
+		if (tool)
+		{
+			glm::dvec2 cursorPos;
+			glfwGetCursorPos(_window, &cursorPos.x, &cursorPos.y);
+			
+			CursorState cursorState;
+			int cursorStateGLFW = glfwGetMouseButton(_window, GLFW_MOUSE_BUTTON_LEFT);
+			if (_lastCursorState == GLFW_RELEASE && cursorStateGLFW == GLFW_PRESS)
+				cursorState = PRESSED;
+			else if (_lastCursorState == GLFW_PRESS && cursorStateGLFW == GLFW_PRESS)
+				cursorState = HELD;
+			else if (_lastCursorState == GLFW_PRESS && cursorStateGLFW == GLFW_RELEASE)
+				cursorState = RELEASED;
+			else // if (_lastCursorState == GLFW_RELEASE && cursorStateGLFW == GLFW_RELEASE)
+				cursorState = NONE;
+			
+			tool->update(_registry, cursorPos, cursorState);
+			
+			_lastCursorState = cursorStateGLFW;
+		}
 		
 		//rendering
 		_renderer->render(_registry);
