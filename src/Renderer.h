@@ -21,6 +21,8 @@ private:
 	
 	Shader _shader;
 	
+	glm::mat4 _orthoProj;
+	
 	void renderPolygons(const std::vector<Polygon>& polygons);
 	void renderLines(const std::vector<Line>& lines);
 	void renderPoints(const std::vector<Point>& points);

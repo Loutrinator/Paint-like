@@ -1,5 +1,5 @@
 #include "Renderer.h"
-#include <glm/gtx/transform.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 struct Vertex
 {
@@ -14,7 +14,7 @@ struct Vertex
 };
 
 Renderer::Renderer(glm::ivec2 windowSize):
-_shader("shader"), _size(windowSize)
+_shader("shader"), _size(windowSize), _orthoProj(glm::ortho(0.0f, (float)_size.x, (float)_size.y, 0.0f, 0.0f, 1.0f))
 {
 	glClearColor(0, 0, 0, 0);
 	
@@ -37,7 +37,7 @@ void Renderer::render(const ShapeRegistry& registry)
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	
-	_shader.setMat4("u_projection", glm::ortho(0, _size.x, _size.y, 0, -10, 10));
+	_shader.setMat4("u_projection", _orthoProj);
 	
 	_shader.bind();
 	glBindVertexArray(_vao);
@@ -61,7 +61,7 @@ void Renderer::renderPolygons(const std::vector<Polygon>& polygons)
 			vertices.emplace_back(vertex, polygon.color);
 		}
 		
-		glNamedBufferData(_polygonVBO, vertices.size(), vertices.data(), GL_DYNAMIC_DRAW);
+		glNamedBufferData(_polygonVBO, vertices.size() * sizeof(Vertex), vertices.data(), GL_DYNAMIC_DRAW);
 		
 		glVertexArrayVertexBuffer(_vao, 0, _polygonVBO, 0, sizeof(Vertex));
 		
@@ -79,7 +79,7 @@ void Renderer::renderLines(const std::vector<Line>& lines)
 		vertices.emplace_back(line.pos2, line.color);
 	}
 	
-	glNamedBufferData(_lineVBO, vertices.size(), vertices.data(), GL_DYNAMIC_DRAW);
+	glNamedBufferData(_lineVBO, vertices.size() * sizeof(Vertex), vertices.data(), GL_DYNAMIC_DRAW);
 	
 	glVertexArrayVertexBuffer(_vao, 0, _lineVBO, 0, sizeof(Vertex));
 	
@@ -95,7 +95,7 @@ void Renderer::renderPoints(const std::vector<Point>& points)
 		vertices.emplace_back(point.pos, point.color);
 	}
 	
-	glNamedBufferData(_pointVBO, vertices.size(), vertices.data(), GL_DYNAMIC_DRAW);
+	glNamedBufferData(_pointVBO, vertices.size() * sizeof(Vertex), vertices.data(), GL_DYNAMIC_DRAW);
 	
 	glVertexArrayVertexBuffer(_vao, 0, _pointVBO, 0, sizeof(Vertex));
 	

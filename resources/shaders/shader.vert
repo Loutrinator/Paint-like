@@ -12,7 +12,7 @@ out V2F
 
 void main()
 {
-    gl_Position = u_projection * vec4(a_position, a_position.x/30, 1);
+    gl_Position = u_projection * vec4(a_position, 0, 1);
 
     v2f.color = a_color;
 }
