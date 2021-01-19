@@ -6,6 +6,8 @@
 #include <iostream>
 #include <glm/gtx/transform.hpp>
 #include <glm/gtx/euler_angles.hpp>
+#include <vector>
+#include "Vertex.h"
 
 void Engine::setup(int width, int height, bool debug) {
 	glfwInit();
@@ -111,21 +113,15 @@ void Engine::run() {
 
 		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-/*
+
 		GLuint _vbo;
-
-		glGenBuffers(1, &_vbo);
-		glBindBuffer(GL_ARRAY_BUFFER, _vbo);
-		glBufferData(GL_ARRAY_BUFFER, size * sizeof(float), vertices, GL_STATIC_DRAW);
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-		//glBindVertexArray(_vao);
-		//glBindVertexBuffer(0,_vbo,0,8*sizeof(GLfloat));
-		//glBindVertexArray(0);
+		std::vector<glm::vec2> vertices;
+		glCreateBuffers(1, &_vbo);
+		glNamedBufferData(_vbo, vertices.size() * sizeof(glm::vec2), vertices.data(), GL_STATIC_DRAW);//GL_ARRAY_BUFFER, size * sizeof(float), vertices, GL_STATIC_DRAW
 
 		//bind
-		glDrawElements(GL_LINE_LOOP, /*taille des indices*/ , GL_UNSIGNED_SHORT, nullptr);
-*/
+		glDrawElements(GL_LINE_LOOP, /*taille des indices*/, GL_UNSIGNED_SHORT, nullptr);
+
 		//swap
 		glfwSwapBuffers(window); //échange les deux buffers (back buffer = tu fais ton rendu, front buffer = ton image affichée)
 	}

@@ -96,6 +96,15 @@
 		<Unit filename="D:/0-Workspace/CLion/Paint-like/src/Engine.h">
 			<Option target="PaintLike"/>
 		</Unit>
+		<Unit filename="D:/0-Workspace/CLion/Paint-like/src/Polygon.cpp">
+			<Option target="PaintLike"/>
+		</Unit>
+		<Unit filename="D:/0-Workspace/CLion/Paint-like/src/Polygon.h">
+			<Option target="PaintLike"/>
+		</Unit>
+		<Unit filename="D:/0-Workspace/CLion/Paint-like/src/Vertex.h">
+			<Option target="PaintLike"/>
+		</Unit>
 		<Unit filename="D:/0-Workspace/CLion/Paint-like/src/main.cpp">
 			<Option target="PaintLike"/>
 		</Unit>

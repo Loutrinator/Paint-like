@@ -7,7 +7,7 @@ cmake_policy(SET CMP0091 NEW)
 
 project(PaintLike)
 
-add_executable(PaintLike vendor/glad/src/glad.c vendor/imgui-1.79/src/imgui.cpp vendor/imgui-1.79/src/imgui_draw.cpp vendor/imgui-1.79/src/imgui_widgets.cpp vendor/imgui-1.79/src/imgui_stdlib.cpp vendor/imgui-1.79/src/imgui_demo.cpp src/main.cpp src/Engine.cpp src/Engine.h)
+add_executable(PaintLike vendor/glad/src/glad.c vendor/imgui-1.79/src/imgui.cpp vendor/imgui-1.79/src/imgui_draw.cpp vendor/imgui-1.79/src/imgui_widgets.cpp vendor/imgui-1.79/src/imgui_stdlib.cpp vendor/imgui-1.79/src/imgui_demo.cpp src/main.cpp src/Engine.cpp src/Engine.h src/Polygon.h)
 
 set_property(TARGET PaintLike PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
