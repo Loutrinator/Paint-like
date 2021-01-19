@@ -85,14 +85,11 @@ void Engine::run()
 		glfwPollEvents();// check les evenements qui ont eu lieu depuis le dernier appel de cette fonction
 		
 		//rendering
-		glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
-
+		_renderer->render(_registry);
+		
+		//ui
         _uiHandler->update();
         _uiHandler->render();
-
-		
-		_renderer->render(_registry);
 		
 		//swap
 		glfwSwapBuffers(_window); //échange les deux buffers (back buffer = tu fais ton rendu, front buffer = ton image affichée)
