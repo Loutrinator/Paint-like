@@ -4,11 +4,8 @@
 
 int main()
 {
-	Engine::instance->setup(1000,800,true);
-
-	Engine::instance->run();
-
-	Engine::instance->terminate();
+	Engine engine(1000,800,true);
+	engine.run();
 
 	return 0;
 }
