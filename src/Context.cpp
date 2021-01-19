@@ -1,5 +1,6 @@
 #include "Context.h"
 #include "Tool/ExampleTool.h"
+#include <cassert>
 
 Context::Context():
 _currentColor(1.0, 0.0, 0.0),
@@ -25,5 +26,7 @@ ITool* Context::getCurrentTool()
 
 void Context::setCurrentTool(std::unique_ptr<ITool>&& tool)
 {
+	assert(tool); // prevent setting _currentTool to nullptr
+	
 	_currentTool = std::move(tool);
 }
