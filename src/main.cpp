@@ -1,17 +1,14 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include "Engine.h"
 
 int main()
 {
-	// Init GLFW et charge les fonctions OpenGL
-	glfwInit();
-	gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress));
-	
-	GLFWwindow* window = glfwCreateWindow(800, 600, "test", nullptr, nullptr);
-	glfwMakeContextCurrent(window);
-	
-	while (!glfwWindowShouldClose(window))
-	{
-		glfwPollEvents();
-	}
+	Engine::instance->setup(1000,800,true);
+
+	Engine::instance->run();
+
+	Engine::instance->terminate();
+
+	return 0;
 }
