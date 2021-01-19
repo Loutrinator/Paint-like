@@ -1,7 +1,6 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
-#include <glm/glm.hpp>
 #include <imgui.h>
 
 enum DrawMode{

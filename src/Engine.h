@@ -9,6 +9,7 @@
 #include <imgui.h>
 #include <imgui_internal.h>
 #include <memory>
+#include "UIHandler.h"
 
 class Engine {
 public:
@@ -33,7 +34,8 @@ private:
 
 	bool firstMouse;
 
-	ImGuiContext* _imGuiContext;
+	UIHandler _uiHandler;
+	Settings _settings;
 };
 
 
