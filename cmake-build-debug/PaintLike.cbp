@@ -96,6 +96,9 @@
 		<Unit filename="D:/Documents/Projets/Paint-like/src/Engine.h">
 			<Option target="PaintLike"/>
 		</Unit>
+		<Unit filename="D:/Documents/Projets/Paint-like/src/Polygon.h">
+			<Option target="PaintLike"/>
+		</Unit>
 		<Unit filename="D:/Documents/Projets/Paint-like/src/Settings.cpp">
 			<Option target="PaintLike"/>
 		</Unit>
