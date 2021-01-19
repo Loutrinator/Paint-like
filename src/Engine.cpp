@@ -21,6 +21,9 @@ void Engine::setup(int width, int height, bool debug) {
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	glfwSetCursorPosCallback(window, mouse_callback);
+
+    ImGui::SetCurrentContext(_imGuiContext);
+    //ImGui::StyleColorsDark();
 }
 
 void Engine::mouse_callback(GLFWwindow* window, double xpos, double ypos){
@@ -124,8 +127,8 @@ void Engine::run() {
 		//glBindVertexArray(0);
 
 		//bind
-		glDrawElements(GL_LINE_LOOP, /*taille des indices*/ , GL_UNSIGNED_SHORT, nullptr);
-*/
+		glDrawElements(GL_LINE_LOOP, /*taille des indices*/// , GL_UNSIGNED_SHORT, nullptr);
+//*/
 		//swap
 		glfwSwapBuffers(window); //échange les deux buffers (back buffer = tu fais ton rendu, front buffer = ton image affichée)
 	}
@@ -134,7 +137,7 @@ void Engine::run() {
 std::unique_ptr<Engine> Engine::instance = std::make_unique<Engine>();
 
 
-Engine::Engine() {
+Engine::Engine() : _imGuiContext(ImGui::CreateContext()) {
 	deltaTime = 0.0f;
 	lastFrame = glfwGetTime();
 }

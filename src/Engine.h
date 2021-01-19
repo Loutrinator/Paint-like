@@ -6,6 +6,8 @@
 #define PROJETPHONG_ENGINE_H
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <imgui.h>
+#include <imgui_internal.h>
 #include <memory>
 
 class Engine {
@@ -30,6 +32,8 @@ private:
 	float lastFrame{};
 
 	bool firstMouse;
+
+	ImGuiContext* _imGuiContext;
 };
 
 
