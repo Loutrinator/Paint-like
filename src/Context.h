@@ -3,7 +3,9 @@
 
 #include <imgui.h>
 #include <memory>
-#include "Tool/ITool.h"
+#include <glm/glm.hpp>
+
+class ITool;
 
 class Context {
 public:

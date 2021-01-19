@@ -2,6 +2,8 @@
 #include <stdexcept>
 #include "Engine.h"
 #include "ShapeRegistry.h"
+#include "Enum/CursorState.h"
+#include "Tool/ITool.h"
 
 void messageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam)
 {
@@ -86,7 +88,7 @@ void Engine::run()
 		
 		//update
 		ITool* tool = _context.getCurrentTool();
-		if (tool)
+		if (!ImGui::GetIO().WantCaptureMouse)
 		{
 			glm::dvec2 cursorPos;
 			glfwGetCursorPos(_window, &cursorPos.x, &cursorPos.y);

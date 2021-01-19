@@ -2,7 +2,8 @@
 #include "Tool/ExampleTool.h"
 
 Context::Context():
-_currentColor(1.0, 0.0, 0.0), _currentTool(std::make_unique<ExampleTool>())
+_currentColor(1.0, 0.0, 0.0),
+_currentTool(std::make_unique<ExampleTool>(*this))
 {
 
 }
@@ -19,7 +20,7 @@ void Context::setColor(glm::vec3 color)
 
 ITool* Context::getCurrentTool()
 {
-	return _currentTool ? _currentTool.get() : nullptr;
+	return _currentTool.get();
 }
 
 void Context::setCurrentTool(std::unique_ptr<ITool>&& tool)
