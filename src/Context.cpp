@@ -21,6 +21,8 @@ void Context::setColor(glm::vec3 color)
 
 ITool* Context::getCurrentTool()
 {
+	assert(_currentTool); // ensure _currentTool is not null
+	
 	return _currentTool.get();
 }
 
