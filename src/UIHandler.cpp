@@ -34,9 +34,9 @@ void UIHandler::update()
 	    {
 		    _context->setColor(color);
 	    }
-	    
-        ImGui::End();
+
     }
+    ImGui::End();
     
     _context->getCurrentTool()->drawUI();
 }
