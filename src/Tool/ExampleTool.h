@@ -11,7 +11,7 @@ public:
 	void drawUI() override;
 
 private:
-	int _currentLineIndex = -1;
+	Line* _currentLine = nullptr;
 };
 
 
