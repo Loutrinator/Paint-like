@@ -4,6 +4,7 @@
 #include <imgui.h>
 #include <memory>
 #include <glm/glm.hpp>
+#include <vector>
 
 class ITool;
 
@@ -15,11 +16,15 @@ public:
     void setColor(glm::vec3 color);
     
 	ITool* getCurrentTool();
-	void setCurrentTool(std::unique_ptr<ITool>&& tool);
+	void setCurrentTool(ITool* tool);
+	
+	std::vector<std::unique_ptr<ITool>>& getTools();
 
 private:
     glm::vec3 _currentColor;
-    std::unique_ptr<ITool> _currentTool;
+    ITool* _currentTool;
+    
+	std::vector<std::unique_ptr<ITool>> _tools;
 };
 
 #endif //SETTINGS_H

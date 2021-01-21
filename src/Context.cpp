@@ -3,10 +3,10 @@
 #include <cassert>
 
 Context::Context():
-_currentColor(1.0, 0.0, 0.0),
-_currentTool(std::make_unique<LineTool>(*this))
+_currentColor(1.0, 0.0, 0.0)
 {
-
+	_tools.emplace_back(std::make_unique<LineTool>(*this));
+	_currentTool = _tools.front().get();
 }
 
 glm::vec3 Context::getColor()
@@ -23,12 +23,17 @@ ITool* Context::getCurrentTool()
 {
 	assert(_currentTool); // ensure _currentTool is not null
 	
-	return _currentTool.get();
+	return _currentTool;
 }
 
-void Context::setCurrentTool(std::unique_ptr<ITool>&& tool)
+void Context::setCurrentTool(ITool* tool)
 {
 	assert(tool); // prevent setting _currentTool to nullptr
 	
-	_currentTool = std::move(tool);
+	_currentTool = tool;
+}
+
+std::vector<std::unique_ptr<ITool>>& Context::getTools()
+{
+	return _tools;
 }
