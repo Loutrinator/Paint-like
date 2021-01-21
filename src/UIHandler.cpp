@@ -34,7 +34,16 @@ void UIHandler::update()
 	    {
 		    _context->setColor(color);
 	    }
+    }
+    ImGui::End();
 
+    ImVec2 buttonSize(60, 40);
+    if(ImGui::Begin("Tool")){
+        ImGui::Button("Pencil", buttonSize);
+        ImGui::SameLine();
+        ImGui::Button("Line", buttonSize);
+        ImGui::SameLine();
+        ImGui::Button("Polygon", buttonSize);
     }
     ImGui::End();
     
