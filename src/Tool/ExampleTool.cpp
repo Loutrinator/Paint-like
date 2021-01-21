@@ -19,7 +19,7 @@ void ExampleTool::update(ShapeRegistry& registry, glm::ivec2 cursorPos, CursorSt
 			
 			registry.lines.push_back(line);
 			
-			_currentLine = &registry.lines.front();
+			_currentLine = &registry.lines.back();
 		}
 		else
 		{
