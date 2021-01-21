@@ -2,7 +2,7 @@
 
 #include "ITool.h"
 
-class ExampleTool : public ITool
+class LineTool : public ITool
 {
 public:
 	using ITool::ITool;

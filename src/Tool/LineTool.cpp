@@ -1,6 +1,6 @@
-#include "ExampleTool.h"
+#include "LineTool.h"
 
-void ExampleTool::update(ShapeRegistry& registry, glm::ivec2 cursorPos, CursorState cursorState)
+void LineTool::update(ShapeRegistry& registry, glm::ivec2 cursorPos, CursorState cursorState)
 {
 	if (_currentLine != nullptr)
 	{
@@ -28,7 +28,7 @@ void ExampleTool::update(ShapeRegistry& registry, glm::ivec2 cursorPos, CursorSt
 	}
 }
 
-void ExampleTool::drawUI()
+void LineTool::drawUI()
 {
 
 }
