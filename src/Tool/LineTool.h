@@ -2,7 +2,7 @@
 
 #include "ITool.h"
 
-class ExampleTool : public ITool
+class LineTool : public ITool
 {
 public:
 	using ITool::ITool;
@@ -11,7 +11,7 @@ public:
 	void drawUI() override;
 
 private:
-	int _currentLineIndex = -1;
+	Line* _currentLine = nullptr;
 };
 
 

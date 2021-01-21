@@ -1,10 +1,10 @@
 #include "Context.h"
-#include "Tool/ExampleTool.h"
+#include "Tool/LineTool.h"
 #include <cassert>
 
 Context::Context():
 _currentColor(1.0, 0.0, 0.0),
-_currentTool(std::make_unique<ExampleTool>(*this))
+_currentTool(std::make_unique<LineTool>(*this))
 {
 
 }
