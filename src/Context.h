@@ -1,5 +1,5 @@
-#ifndef SETTINGS_H
-#define SETTINGS_H
+#ifndef CONTEXT_H
+#define CONTEXT_H
 
 #include <imgui.h>
 #include <memory>
@@ -27,4 +27,4 @@ private:
 	std::vector<std::unique_ptr<ITool>> _tools;
 };
 
-#endif //SETTINGS_H
+#endif //CONTEXT_H

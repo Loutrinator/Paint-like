@@ -39,11 +39,15 @@ void UIHandler::update()
 
     ImVec2 buttonSize(60, 40);
     if(ImGui::Begin("Tool")){
-        ImGui::Button("Pencil", buttonSize);
-        ImGui::SameLine();
-        ImGui::Button("Line", buttonSize);
-        ImGui::SameLine();
-        ImGui::Button("Polygon", buttonSize);
+        std::vector<std::unique_ptr<ITool>>& tools(_context->getTools());
+        int toolsSize = tools.size();
+        for(int i = 0; i < toolsSize; i++){
+            std::unique_ptr<ITool>& currentTool = tools.at(i);
+            if(ImGui::Button(currentTool->getName().c_str(), buttonSize)){
+                _context->setCurrentTool(currentTool.get());
+            }
+            if(i < toolsSize - 1) ImGui::SameLine();
+        }
     }
     ImGui::End();
     
