@@ -41,15 +41,27 @@ void PolygonTool::update(ShapeRegistry &registry, glm::ivec2 cursorPos, CursorSt
 }
 
 void PolygonTool::drawUI() {
-    if(_lastPolygon == nullptr) return;
     if(ImGui::Begin("Polygon")){
-        if(ImGui::Button("Fill polygon")){
-            // TODO fill polygon
-        }
+		if(ImGui::Button("Undo")){
+			_currentPolygon->vertices.pop_back();
+		}
+		if(_lastPolygon == nullptr) {
+
+			ImGui::End();
+			return;
+		};
+		if(ImGui::Button("Fill polygon")){
+			// TODO fill polygon
+		}
     }
-    ImGui::End();
+
+	ImGui::End();
 }
 
 std::string PolygonTool::getName() {
 	return "Polygon";
+}
+
+bool PolygonTool::isEditing() {
+	return _currentPolygon != nullptr;
 }

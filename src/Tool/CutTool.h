@@ -12,6 +12,7 @@ public:
 	void update(ShapeRegistry &registry, glm::ivec2 cursorPos, CursorState cursorState) override;
 	void drawUI() override;
 	std::string getName() override;
+	bool isEditing() override;
 private:
 	Polygon* _currentPolygonWindow = nullptr;
 

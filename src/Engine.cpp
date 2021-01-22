@@ -110,7 +110,7 @@ void Engine::run()
 		}
 		
 		//rendering
-		_renderer->render(_registry);
+		_renderer->render(_registry,_context);
 		
 		//ui
         _uiHandler->update();

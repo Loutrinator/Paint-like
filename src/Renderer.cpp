@@ -1,4 +1,5 @@
 #include "Renderer.h"
+#include "Tool/PolygonTool.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <GLFW/glfw3.h>
 #include <iostream>
@@ -26,7 +27,7 @@ Renderer::Renderer(glm::ivec2 windowSize):
 	glCreateBuffers(1, &_pointVBO);
 }
 
-void Renderer::render(const ShapeRegistry& registry)
+void Renderer::render(const ShapeRegistry& registry, const Context& context)
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	
@@ -39,7 +40,7 @@ void Renderer::render(const ShapeRegistry& registry)
 	_mainShader.bind();
 	glBindVertexArray(_vao);
 	
-	renderPolygons(registry.polygons);
+	renderPolygons(registry.polygons, context);
 	renderLines(registry.lines);
 	renderPoints(registry.points);
 	renderMasks(registry.masks);
@@ -48,13 +49,13 @@ void Renderer::render(const ShapeRegistry& registry)
 	glUseProgram(0);
 }
 
-void Renderer::renderPolygons(const std::vector<Polygon>& polygons)
+void Renderer::renderPolygons(const std::vector<Polygon>& polygons, const Context& context)
 {
-	for (const Polygon& polygon : polygons)
-	{
+	for (int i = 0; i < polygons.size(); ++i) {
+		const Polygon& polygon = polygons.at(i);
 		std::vector<Vertex> vertices;
 		std::vector<Vertex> outsideVertices;
-		
+
 		for (glm::vec2 vertex : polygon.vertices)
 		{
 			vertices.emplace_back(vertex, polygon.color);
@@ -63,22 +64,28 @@ void Renderer::renderPolygons(const std::vector<Polygon>& polygons)
 
 		_mainShader.bind();
 		glNamedBufferData(_polygonVBO, vertices.size() * sizeof(Vertex), vertices.data(), GL_DYNAMIC_DRAW);
-		
+
 		glVertexArrayVertexBuffer(_vao, 0, _polygonVBO, 0, sizeof(Vertex));
-		
+
 		glDrawArrays(GL_TRIANGLE_FAN, 0, vertices.size());
+		PolygonTool* polygonTool  = dynamic_cast<PolygonTool*>(context.getCurrentTool());
+		if(polygonTool != nullptr){
+			if(polygonTool->isEditing()){
+				if( i >= polygons.size()-1){_outlineShader.bind();
+					glLineWidth(2.0f);//TODO: fournir une épaisseur aux lignes et pencil
+
+					glNamedBufferData(_lineVBO, outsideVertices.size() * sizeof(Vertex), outsideVertices.data(), GL_DYNAMIC_DRAW);
+
+					glVertexArrayVertexBuffer(_vao, 0, _lineVBO, 0, sizeof(Vertex));
+
+					glDrawArrays(GL_LINE_LOOP, 0, outsideVertices.size());
+					glLineWidth(1.0f);
+					_mainShader.bind();
+				}
+			}
+		}
 
 
-		_outlineShader.bind();
-		glLineWidth(2.0f);//TODO: fournir une épaisseur aux lignes et pencil
-
-		glNamedBufferData(_lineVBO, outsideVertices.size() * sizeof(Vertex), outsideVertices.data(), GL_DYNAMIC_DRAW);
-
-		glVertexArrayVertexBuffer(_vao, 0, _lineVBO, 0, sizeof(Vertex));
-
-		glDrawArrays(GL_LINE_LOOP, 0, outsideVertices.size());
-		glLineWidth(1.0f);
-		_mainShader.bind();
 	}
 }
 
@@ -125,20 +132,12 @@ void Renderer::renderMasks(std::vector<Polygon> masks) {
 
 		for (glm::vec2 vertex : mask.vertices)
 		{
-			vertices.emplace_back(vertex, mask.color);
-			outsideVertices.emplace_back(vertex, glm::vec4(0,0,0,1));
+			outsideVertices.emplace_back(vertex, glm::vec4(1));
 		}
-
-		_mainShader.bind();
-		glNamedBufferData(_polygonVBO, vertices.size() * sizeof(Vertex), vertices.data(), GL_DYNAMIC_DRAW);
-
-		glVertexArrayVertexBuffer(_vao, 0, _polygonVBO, 0, sizeof(Vertex));
-
-		glDrawArrays(GL_TRIANGLE_FAN, 0, vertices.size());
 
 
 		_outlineShader.bind();
-		glLineWidth(5.0f);//TODO:
+		glLineWidth(2.0f);//TODO:
 
 		glNamedBufferData(_lineVBO, outsideVertices.size() * sizeof(Vertex), outsideVertices.data(), GL_DYNAMIC_DRAW);
 

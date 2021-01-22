@@ -19,3 +19,7 @@ void PencilTool::drawUI() {
 std::string PencilTool::getName() {
     return "Pencil";
 }
+
+bool PencilTool::isEditing() {
+	return true;
+}

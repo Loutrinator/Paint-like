@@ -94,3 +94,7 @@ glm::vec2 CutTool::intersection(glm::vec2 cp1, glm::vec2 cp2, glm::vec2 s, glm::
 bool CutTool::isInside(glm::vec2 p, glm::vec2 p1, glm::vec2 p2) {
     return (p2.y - p1.y) * p.x + (p1.x - p2.x) * p.y + (p2.x * p1.y - p1.x * p2.y) < 0;
 }
+
+bool CutTool::isEditing() {
+	return _currentPolygonWindow != nullptr;
+}

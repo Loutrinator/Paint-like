@@ -2,6 +2,7 @@
 
 #include "ShapeRegistry.h"
 #include "Shader.h"
+#include "Context.h"
 #include <glad/glad.h>
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -22,7 +23,7 @@ class Renderer
 {
 public:
 	Renderer(glm::ivec2 windowSize);
-	void render(const ShapeRegistry& registry);
+	void render(const ShapeRegistry& registry, const Context& context);
 
 private:
 	glm::ivec2 _size;
@@ -38,7 +39,7 @@ private:
 	
 	glm::mat4 _orthoProj;
 	
-	void renderPolygons(const std::vector<Polygon>& polygons);
+	void renderPolygons(const std::vector<Polygon>& polygons, const Context& context);
 	void renderLines(const std::vector<Line>& lines);
 	void renderPoints(const std::vector<Point>& points);
 

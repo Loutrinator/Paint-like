@@ -36,3 +36,7 @@ void LineTool::drawUI()
 std::string LineTool::getName() {
 	return "Line";
 }
+
+bool LineTool::isEditing() {
+	return _currentLine != nullptr;
+}

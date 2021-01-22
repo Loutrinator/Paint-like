@@ -15,7 +15,7 @@ _currentColor(1.0, 0.0, 0.0,1.0)
 	_currentTool = _tools.front().get();
 }
 
-glm::vec4 Context::getColor()
+glm::vec4 Context::getColor() const
 {
     return _currentColor;
 }
@@ -25,7 +25,7 @@ void Context::setColor(glm::vec4 color)
 	_currentColor = color;
 }
 
-ITool* Context::getCurrentTool()
+ITool* Context::getCurrentTool() const
 {
 	assert(_currentTool); // ensure _currentTool is not null
 	
