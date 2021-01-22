@@ -5,6 +5,9 @@
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
 #include "Context.h"
+#include "Tool/CutTool.h"
+#include "Tool/LineTool.h"
+#include "Tool/PolygonTool.h"
 
 class UIHandler {
 public:

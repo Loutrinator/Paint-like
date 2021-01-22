@@ -34,5 +34,5 @@ void LineTool::drawUI()
 }
 
 std::string LineTool::getName() {
-    return "Line";
+	return "Line";
 }

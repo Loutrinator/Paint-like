@@ -7,5 +7,5 @@ struct Point
 	glm::vec2 pos;
 	
 	float width;
-	glm::vec3 color;
+	glm::vec4 color;
 };

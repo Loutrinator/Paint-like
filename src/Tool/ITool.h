@@ -4,6 +4,7 @@
 #include "../ShapeRegistry.h"
 #include "../Context.h"
 #include "../Enum/CursorState.h"
+#include <string>
 
 class ITool
 {

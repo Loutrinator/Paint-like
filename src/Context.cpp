@@ -1,22 +1,24 @@
 #include "Context.h"
 #include "Tool/LineTool.h"
-#include "Tool/PencilTool.h"
+#include "Tool/PolygonTool.h"
+#include "Tool/CutTool.h"
 #include <cassert>
 
 Context::Context():
-_currentColor(1.0, 0.0, 0.0)
+_currentColor(1.0, 0.0, 0.0,1.0)
 {
 	_tools.emplace_back(std::make_unique<LineTool>(*this));
-	_tools.emplace_back(std::make_unique<PencilTool>(*this));
+	_tools.emplace_back(std::make_unique<PolygonTool>(*this));
+	_tools.emplace_back(std::make_unique<CutTool>(*this));
 	_currentTool = _tools.front().get();
 }
 
-glm::vec3 Context::getColor()
+glm::vec4 Context::getColor()
 {
     return _currentColor;
 }
 
-void Context::setColor(glm::vec3 color)
+void Context::setColor(glm::vec4 color)
 {
 	_currentColor = color;
 }

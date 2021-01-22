@@ -6,5 +6,5 @@
 struct Polygon
 {
 	std::vector<glm::vec2> vertices;
-	glm::vec3 color;
+	glm::vec4 color;
 };

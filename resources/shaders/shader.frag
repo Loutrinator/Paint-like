@@ -2,12 +2,12 @@
 
 in V2F
 {
-    vec3 color;
+    vec4 color;
 } v2f;
 
 out vec4 o_color;
 
 void main()
 {
-    o_color = vec4(v2f.color, 1);
+    o_color = v2f.color;
 }

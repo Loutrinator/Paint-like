@@ -8,5 +8,5 @@ struct Line
 	glm::vec2 pos2;
 	
 	float width;
-	glm::vec3 color;
+	glm::vec4 color;
 };
