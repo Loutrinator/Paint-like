@@ -1,3 +1,4 @@
+#define STB_IMAGE_IMPLEMENTATION
 #include "Image.h"
 #include "stb_image.h"
 Image::Image(const std::string& name) {
