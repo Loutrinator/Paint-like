@@ -8,6 +8,7 @@
 #include "Tool/CutTool.h"
 #include "Tool/LineTool.h"
 #include "Tool/PolygonTool.h"
+#include "Shape/Image.h"
 
 class UIHandler {
 public:
@@ -19,6 +20,7 @@ public:
 private:
 	Context* _context;
     ImGuiContext* _imGuiContext;
+    Image _pictoPen;
 };
 
 

@@ -5,7 +5,7 @@
 class Image {
 public:
 	Image(const std::string& name);
-	GLuint getTextureId() const;
+	GLuint& getTextureId();
 	int getWidth() const;
 	int getHeight() const;
 private:
