@@ -17,6 +17,6 @@ private:
 	Polygon* _currentPolygonWindow = nullptr;
 
 	void cutPolygons(ShapeRegistry &registry);
-	static glm::vec2 intersection(glm::vec2 cp1, glm::vec2 cp2, glm::vec2 s, glm::vec2 e);
+	static bool intersection(glm::vec2 p0, glm::vec2 p1, glm::vec2 p2, glm::vec2 p3, glm::vec2* i);
 	static bool isInside(glm::vec2 p, glm::vec2 p1, glm::vec2 p2);
 };

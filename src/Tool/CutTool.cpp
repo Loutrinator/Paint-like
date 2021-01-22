@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "CutTool.h"
+#include <glm/gtx/integer.hpp>
 
 void CutTool::update(ShapeRegistry &registry, glm::ivec2 cursorPos, CursorState cursorState) {
 	if(_currentPolygonWindow != nullptr) {
@@ -30,6 +31,7 @@ void CutTool::update(ShapeRegistry &registry, glm::ivec2 cursorPos, CursorState 
 			if(distance < 15){
 				_currentPolygonWindow->vertices.pop_back();
 				cutPolygons(registry);
+				registry.masks.pop_back();
                 _currentPolygonWindow = nullptr;
 			}else{
 				_currentPolygonWindow->vertices.emplace_back(cursorPos);
@@ -46,49 +48,69 @@ std::string CutTool::getName() {
     return "Cut";
 }
 
+bool CutTool::intersection(glm::vec2 p0, glm::vec2 p1, glm::vec2 p2, glm::vec2 p3, glm::vec2* i)
+{
+	glm::vec2 s1, s2;
+	s1 = p1 - p0;
+	s2 = p3 - p2;
+	
+	float s, t;
+	s = (-s1.y * (p0.x - p2.x) + s1.x * (p0.y - p2.y)) / (-s2.x * s1.y + s1.x * s2.y);
+	t = ( s2.x * (p0.y - p2.y) - s2.y * (p0.x - p2.x)) / (-s2.x * s1.y + s1.x * s2.y);
+	
+	if (s >= 0 && s <= 1 && t >= 0 && t <= 1)
+	{
+		// Collision detected
+		*i = p0 + (t * s1);
+		return true;
+	}
+	
+	return false; // No collision
+}
+
 void CutTool::cutPolygons(ShapeRegistry &registry) {
     std::vector<glm::vec2> windowPoints = _currentPolygonWindow->vertices;
     int windowPtsLen = windowPoints.size();
     for(Polygon& polygon : registry.polygons){    // iterate over polygons
-        std::vector<glm::vec2> outputPoints;
+        std::vector<glm::vec2> outputPoints = polygon.vertices;
         for(int w = 0; w < windowPtsLen; w++) { // iterate over window points
-            glm::vec2 wP0 = windowPoints.at(0);
-            glm::vec2 wP1 = windowPoints.at(1);
-            std::vector<glm::vec2> inputPoints = polygon.vertices;
+            glm::vec2 wP0 = windowPoints.at(w);
+            glm::vec2 wP1 = windowPoints.at(glm::mod(w+1, windowPtsLen));
+            
+            std::vector<glm::vec2> inputPoints = outputPoints;
             outputPoints.clear();
 
             int inputSize = inputPoints.size();
-            for(int i = 1; i < inputSize; i++){ // iterate over current polygon points
+            for(int i = 0; i < inputSize; i++){ // iterate over current polygon points
                 glm::vec2 currentPoint = inputPoints.at(i);
-                int indPrev = (i - 1) % inputSize;
-                glm::vec2 prevPoint = inputPoints.at(indPrev);
-
-                glm::vec2 intersectingPoint = intersection(prevPoint, currentPoint, wP0, wP1);
-
-                if(isInside(wP0, wP1, currentPoint)){
-                    if(!isInside(wP0, wP1, prevPoint))
-                        outputPoints.push_back(intersectingPoint);
-                    outputPoints.push_back(currentPoint);
-                } else if(isInside(wP0, wP1, prevPoint)){
-                    outputPoints.push_back(intersectingPoint);
-                }
+                glm::vec2 nextPoint = inputPoints.at(glm::mod(i+1, inputSize));
+	
+	            glm::vec2 intersectingPoint;
+	            bool intersect = intersection(currentPoint, nextPoint, wP0, wP1, &intersectingPoint);
+	            
+	            if (intersect)
+	            {
+		            if(isInside(wP0, wP1, currentPoint))
+		            {
+		            	outputPoints.push_back(currentPoint);
+		            	outputPoints.push_back(intersectingPoint);
+		            }
+		            else if(isInside(wP0, wP1, nextPoint))
+		            {
+		            	outputPoints.push_back(intersectingPoint);
+		            }
+	            }
+	            else
+	            {
+		            if(isInside(wP0, wP1, currentPoint))
+		            {
+			            outputPoints.push_back(currentPoint);
+		            }
+	            }
             }
         }
         polygon.vertices = outputPoints;
     }
-}
-
-
-
-glm::vec2 CutTool::intersection(glm::vec2 cp1, glm::vec2 cp2, glm::vec2 s, glm::vec2 e) {
-    glm::vec2 dc(cp1.x - cp2.x, cp1.y - cp2.y);
-    glm::vec2 dp(s.x - e.x, s.y - e.y);
-
-    float n1 = cp1.x * cp2.y - cp1.y * cp2.x;
-    float n2 = s.x * e.y - s.y * e.x;
-    float n3 = 1.0f / (dc.x * dp.y - dc.y * dp.x);
-
-    return glm::vec2((n1 * dp.x - n2 * dc.x) * n3, (n1 * dp.y - n2 * dc.y) * n3);
 }
 
 bool CutTool::isInside(glm::vec2 p, glm::vec2 p1, glm::vec2 p2) {
