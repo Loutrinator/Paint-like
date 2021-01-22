@@ -1,7 +1,9 @@
 #include "Renderer.h"
+#include "Shape/Image.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <GLFW/glfw3.h>
 #include <iostream>
+#include <imgui.h>
 
 Renderer::Renderer(glm::ivec2 windowSize):
 		_mainShader("shader"), _outlineShader("outline"), _size(windowSize), _orthoProj(glm::ortho(0.0f, (float)_size.x, (float)_size.y, 0.0f, 0.0f, 1.0f))
@@ -79,6 +81,17 @@ void Renderer::renderPolygons(const std::vector<Polygon>& polygons)
 		glDrawArrays(GL_LINE_LOOP, 0, outsideVertices.size());
 		glLineWidth(1.0f);
 		_mainShader.bind();
+		for(glm::vec2 vertex : polygon.vertices){
+		}
+		/*
+		 * int frame_padding = -1 + i;                             // -1 == uses default padding (style.FramePadding)
+            ImVec2 size = ImVec2(32.0f, 32.0f);                     // Size of the image we want to make visible
+            ImVec2 uv0 = ImVec2(0.0f, 0.0f);                        // UV coordinates for lower-left
+            ImVec2 uv1 = ImVec2(32.0f / my_tex_w, 32.0f / my_tex_h);// UV coordinates for (32,32) in our texture
+            ImVec4 bg_col = ImVec4(0.0f, 0.0f, 0.0f, 1.0f);         // Black background
+            ImVec4 tint_col = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);       // No tint
+            if (ImGui::ImageButton(my_tex_id, size, uv0, uv1, frame_padding, bg_col, tint_col))
+		 * */
 	}
 }
 

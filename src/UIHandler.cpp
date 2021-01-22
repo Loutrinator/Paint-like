@@ -1,6 +1,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "UIHandler.h"
 #include "Tool/ITool.h"
+#include "Shape/Image.h"
 
 UIHandler::UIHandler(Context* context, GLFWwindow* window):
 _context(context), _imGuiContext(ImGui::CreateContext())
@@ -49,9 +50,19 @@ void UIHandler::update()
             }
             if(i < toolsSize - 1) ImGui::SameLine();
         }
+
+		Image picto("round.png");
+
+		int frame_padding = 0;                             // -1 == uses default padding (style.FramePadding)
+		ImVec2 size = ImVec2(32.0f, 32.0f);                     // Size of the image we want to make visible
+		ImVec2 uv0 = ImVec2(0.0f, 0.0f);                        // UV coordinates for lower-left
+		ImVec2 uv1 = ImVec2(32.0f / picto.getWidth(), 32.0f / picto.getHeight());// UV coordinates for (32,32) in our texture
+		ImVec4 bg_col = ImVec4(0.0f, 0.0f, 0.0f, 1.0f);         // Black background
+		ImVec4 tint_col = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);       // No tint
+		if (ImGui::ImageButton(reinterpret_cast<ImTextureID>(picto.getTextureId()), size, uv0, uv1, frame_padding, bg_col, tint_col));
     }
     ImGui::End();
-    
+	ImGui::ShowDemoWindow();
     _context->getCurrentTool()->drawUI();
 }
 
