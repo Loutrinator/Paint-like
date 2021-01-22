@@ -15,7 +15,7 @@ add_executable(PaintLike vendor/glad/src/glad.c vendor/imgui-1.79/src/imgui.cpp
 		src/main.cpp src/Engine.cpp src/Engine.h src/Context.cpp src/Context.h
 		src/UIHandler.cpp src/UIHandler.h
 		src/Renderer.cpp src/Renderer.h src/Shape/Polygon.h src/ShapeRegistry.h src/Shape/Line.h
-		src/Shape/Point.h src/Tool/PolygonTool.h src/Tool/PolygonTool.cpp
+		src/Shape/Point.h src/Tool/PolygonTool.h src/Tool/PolygonTool.cpp src/Tool/CutTool.cpp src/Tool/CutTool.h
 		src/Shader.cpp src/Shader.h src/Helper/FileHelper.cpp src/Helper/FileHelper.h src/Tool/ITool.h src/Tool/LineTool.cpp src/Tool/LineTool.h src/Enum/CursorState.h src/Tool/PencilTool.cpp src/Tool/PencilTool.h)
 
 set_property(TARGET PaintLike PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
