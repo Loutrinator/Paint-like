@@ -12,8 +12,8 @@ class Context {
 public:
 	Context();
 	
-	glm::vec3 getColor();
-    void setColor(glm::vec3 color);
+	glm::vec4 getColor();
+    void setColor(glm::vec4 color);
     
 	ITool* getCurrentTool();
 	void setCurrentTool(ITool* tool);
@@ -21,7 +21,7 @@ public:
 	std::vector<std::unique_ptr<ITool>>& getTools();
 
 private:
-    glm::vec3 _currentColor;
+    glm::vec4 _currentColor;
     ITool* _currentTool;
     
 	std::vector<std::unique_ptr<ITool>> _tools;

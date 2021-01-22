@@ -4,7 +4,6 @@ layout(location = 0) in vec2 a_position;
 layout(location = 1) in vec4 a_color;
 
 uniform mat4 u_projection;
-
 out V2F
 {
     vec4 color;
@@ -13,6 +12,5 @@ out V2F
 void main()
 {
     gl_Position = u_projection * vec4(a_position, 0, 1);
-
     v2f.color = a_color;
 }

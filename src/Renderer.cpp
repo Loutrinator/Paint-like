@@ -1,23 +1,15 @@
 #include "Renderer.h"
 #include <glm/gtc/matrix_transform.hpp>
-
-struct Vertex
-{
-	glm::vec2 position;
-	glm::vec3 color;
-	
-	Vertex(glm::vec2 position, glm::vec3 color):
-	position(position), color(color)
-	{
-	
-	}
-};
+#include <GLFW/glfw3.h>
+#include <iostream>
 
 Renderer::Renderer(glm::ivec2 windowSize):
-_shader("shader"), _size(windowSize), _orthoProj(glm::ortho(0.0f, (float)_size.x, (float)_size.y, 0.0f, 0.0f, 1.0f))
+		_mainShader("shader"), _outlineShader("outline"), _size(windowSize), _orthoProj(glm::ortho(0.0f, (float)_size.x, (float)_size.y, 0.0f, 0.0f, 1.0f))
 {
-	glClearColor(0, 0, 0, 0);
-	
+	glClearColor(1, 1, 1, 0);
+	glEnable(GL_BLEND);
+
+
 	glCreateVertexArrays(1, &_vao);
 	
 	glVertexArrayAttribFormat(_vao, 0, 2, GL_FLOAT, GL_FALSE, offsetof(Vertex, position));
@@ -37,14 +29,19 @@ void Renderer::render(const ShapeRegistry& registry)
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 	
-	_shader.setMat4("u_projection", _orthoProj);
-	
-	_shader.bind();
+	_mainShader.setMat4("u_projection", _orthoProj);
+	_outlineShader.setMat4("u_projection", _orthoProj);
+	float t = (float)glfwGetTime();
+	_outlineShader.setFloat("u_time", t);
+
+
+	_mainShader.bind();
 	glBindVertexArray(_vao);
 	
 	renderPolygons(registry.polygons);
 	renderLines(registry.lines);
 	renderPoints(registry.points);
+	renderMasks(registry.masks);
 	
 	glBindVertexArray(0);
 	glUseProgram(0);
@@ -55,17 +52,32 @@ void Renderer::renderPolygons(const std::vector<Polygon>& polygons)
 	for (const Polygon& polygon : polygons)
 	{
 		std::vector<Vertex> vertices;
+		std::vector<Vertex> outsideVertices;
 		
 		for (glm::vec2 vertex : polygon.vertices)
 		{
 			vertices.emplace_back(vertex, polygon.color);
+			outsideVertices.emplace_back(vertex, glm::vec4(0,0,0,1));
 		}
-		
+
+		_mainShader.bind();
 		glNamedBufferData(_polygonVBO, vertices.size() * sizeof(Vertex), vertices.data(), GL_DYNAMIC_DRAW);
 		
 		glVertexArrayVertexBuffer(_vao, 0, _polygonVBO, 0, sizeof(Vertex));
 		
 		glDrawArrays(GL_TRIANGLE_FAN, 0, vertices.size());
+
+
+		_outlineShader.bind();
+		glLineWidth(5.0f);//TODO: fournir une épaisseur aux lignes et pencil
+
+		glNamedBufferData(_lineVBO, outsideVertices.size() * sizeof(Vertex), outsideVertices.data(), GL_DYNAMIC_DRAW);
+
+		glVertexArrayVertexBuffer(_vao, 0, _lineVBO, 0, sizeof(Vertex));
+
+		glDrawArrays(GL_LINE_LOOP, 0, outsideVertices.size());
+		glLineWidth(1.0f);
+		_mainShader.bind();
 	}
 }
 
@@ -78,12 +90,13 @@ void Renderer::renderLines(const std::vector<Line>& lines)
 		vertices.emplace_back(line.pos1, line.color);
 		vertices.emplace_back(line.pos2, line.color);
 	}
-	
+
 	glNamedBufferData(_lineVBO, vertices.size() * sizeof(Vertex), vertices.data(), GL_DYNAMIC_DRAW);
-	
+
 	glVertexArrayVertexBuffer(_vao, 0, _lineVBO, 0, sizeof(Vertex));
-	
+
 	glDrawArrays(GL_LINES, 0, vertices.size());
+
 }
 
 void Renderer::renderPoints(const std::vector<Point>& points)
@@ -100,4 +113,38 @@ void Renderer::renderPoints(const std::vector<Point>& points)
 	glVertexArrayVertexBuffer(_vao, 0, _pointVBO, 0, sizeof(Vertex));
 	
 	glDrawArrays(GL_POINTS, 0, vertices.size());
+}
+
+void Renderer::renderMasks(std::vector<Polygon> masks) {
+
+	for (const Polygon& mask : masks)
+	{
+		std::vector<Vertex> vertices;
+		std::vector<Vertex> outsideVertices;
+
+		for (glm::vec2 vertex : mask.vertices)
+		{
+			vertices.emplace_back(vertex, mask.color);
+			outsideVertices.emplace_back(vertex, glm::vec4(0,0,0,1));
+		}
+
+		_mainShader.bind();
+		glNamedBufferData(_polygonVBO, vertices.size() * sizeof(Vertex), vertices.data(), GL_DYNAMIC_DRAW);
+
+		glVertexArrayVertexBuffer(_vao, 0, _polygonVBO, 0, sizeof(Vertex));
+
+		glDrawArrays(GL_TRIANGLE_FAN, 0, vertices.size());
+
+
+		_outlineShader.bind();
+		glLineWidth(5.0f);//TODO:
+
+		glNamedBufferData(_lineVBO, outsideVertices.size() * sizeof(Vertex), outsideVertices.data(), GL_DYNAMIC_DRAW);
+
+		glVertexArrayVertexBuffer(_vao, 0, _lineVBO, 0, sizeof(Vertex));
+
+		glDrawArrays(GL_LINE_LOOP, 0, outsideVertices.size());
+		glLineWidth(1.0f);
+		_mainShader.bind();
+	}
 }

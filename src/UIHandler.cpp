@@ -29,8 +29,8 @@ void UIHandler::update()
 
     if(ImGui::Begin("Color"))
     {
-	    glm::vec3 color = _context->getColor();
-	    if (ImGui::ColorPicker3("Color", glm::value_ptr(color)))
+	    glm::vec4 color = _context->getColor();
+	    if (ImGui::ColorPicker4("Color", glm::value_ptr(color)))
 	    {
 		    _context->setColor(color);
 	    }
@@ -38,7 +38,8 @@ void UIHandler::update()
     ImGui::End();
 
     ImVec2 buttonSize(60, 40);
-    if(ImGui::Begin("Tool")){
+	std::string title = "Tool (current : " + _context->getCurrentTool()->getName() + ")";
+    if(ImGui::Begin(title.c_str())){
         std::vector<std::unique_ptr<ITool>>& tools(_context->getTools());
         int toolsSize = tools.size();
         for(int i = 0; i < toolsSize; i++){

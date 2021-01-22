@@ -4,6 +4,8 @@
 #include "ShapeRegistry.h"
 #include "Enum/CursorState.h"
 #include "Tool/ITool.h"
+#include "Tool/CutTool.h"
+#include "Tool/PolygonTool.h"
 
 void messageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam)
 {
@@ -78,14 +80,12 @@ void Engine::activateDebugMode()
 	glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
 	glDebugMessageCallback(messageCallback, nullptr);
 }
-
 void Engine::run()
 {
 	while (!glfwWindowShouldClose(_window))
 	{
 		//events
 		glfwPollEvents();// check les evenements qui ont eu lieu depuis le dernier appel de cette fonction
-		
 		//update
 		ITool* tool = _context.getCurrentTool();
 		if (!ImGui::GetIO().WantCaptureMouse)
