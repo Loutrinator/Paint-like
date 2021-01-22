@@ -16,6 +16,7 @@ void PolygonTool::update(ShapeRegistry &registry, glm::ivec2 cursorPos, CursorSt
 	}
 	if(cursorState == CursorState::RELEASED){
 		if(_currentPolygon == nullptr){
+		    _lastPolygon = nullptr;
 			Polygon poly;
 			poly.color = _context.getColor();
 			poly.vertices.emplace_back(cursorPos);
@@ -27,7 +28,8 @@ void PolygonTool::update(ShapeRegistry &registry, glm::ivec2 cursorPos, CursorSt
 			float distance = glm::distance(lastPos, static_cast<glm::vec2>(cursorPos));
 			if(distance < 15){
 				_currentPolygon->vertices.pop_back();
-				_currentPolygon = nullptr;
+                _lastPolygon = _currentPolygon;
+                _currentPolygon = nullptr;
 			}else{
 				_currentPolygon->vertices.emplace_back(cursorPos);
 			}
@@ -39,7 +41,13 @@ void PolygonTool::update(ShapeRegistry &registry, glm::ivec2 cursorPos, CursorSt
 }
 
 void PolygonTool::drawUI() {
-
+    if(_lastPolygon == nullptr) return;
+    if(ImGui::Begin("Polygon")){
+        if(ImGui::Button("Fill polygon")){
+            // TODO fill polygon
+        }
+    }
+    ImGui::End();
 }
 
 std::string PolygonTool::getName() {

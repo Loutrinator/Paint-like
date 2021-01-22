@@ -11,4 +11,5 @@ public:
 	std::string getName() override;
 private:
 	Polygon* _currentPolygon = nullptr;
+	Polygon* _lastPolygon = nullptr;
 };
