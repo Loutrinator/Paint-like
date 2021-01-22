@@ -8,6 +8,7 @@ Renderer::Renderer(glm::ivec2 windowSize):
 {
 	glClearColor(1, 1, 1, 0);
 	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 
 	glCreateVertexArrays(1, &_vao);
@@ -57,7 +58,7 @@ void Renderer::renderPolygons(const std::vector<Polygon>& polygons)
 		for (glm::vec2 vertex : polygon.vertices)
 		{
 			vertices.emplace_back(vertex, polygon.color);
-			outsideVertices.emplace_back(vertex, glm::vec4(0,0,0,1));
+			outsideVertices.emplace_back(vertex, glm::vec4(1));
 		}
 
 		_mainShader.bind();
@@ -69,7 +70,7 @@ void Renderer::renderPolygons(const std::vector<Polygon>& polygons)
 
 
 		_outlineShader.bind();
-		glLineWidth(5.0f);//TODO: fournir une épaisseur aux lignes et pencil
+		glLineWidth(2.0f);//TODO: fournir une épaisseur aux lignes et pencil
 
 		glNamedBufferData(_lineVBO, outsideVertices.size() * sizeof(Vertex), outsideVertices.data(), GL_DYNAMIC_DRAW);
 

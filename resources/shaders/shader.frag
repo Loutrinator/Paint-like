@@ -10,4 +10,5 @@ out vec4 o_color;
 void main()
 {
     o_color = v2f.color;
+    o_color.a = 0.2;
 }
