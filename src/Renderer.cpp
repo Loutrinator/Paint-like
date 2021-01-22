@@ -69,13 +69,14 @@ void Renderer::renderPolygons(const std::vector<Polygon>& polygons)
 
 
 		_outlineShader.bind();
-		glLineWidth(5.0f);
+		glLineWidth(5.0f);//TODO: fournir une épaisseur aux lignes et pencil
 
 		glNamedBufferData(_lineVBO, outsideVertices.size() * sizeof(Vertex), outsideVertices.data(), GL_DYNAMIC_DRAW);
 
 		glVertexArrayVertexBuffer(_vao, 0, _lineVBO, 0, sizeof(Vertex));
 
 		glDrawArrays(GL_LINE_LOOP, 0, outsideVertices.size());
+		glLineWidth(1.0f);
 		_mainShader.bind();
 	}
 }
@@ -136,13 +137,14 @@ void Renderer::renderMasks(std::vector<Polygon> masks) {
 
 
 		_outlineShader.bind();
-		glLineWidth(5.0f);
+		glLineWidth(5.0f);//TODO:
 
 		glNamedBufferData(_lineVBO, outsideVertices.size() * sizeof(Vertex), outsideVertices.data(), GL_DYNAMIC_DRAW);
 
 		glVertexArrayVertexBuffer(_vao, 0, _lineVBO, 0, sizeof(Vertex));
 
 		glDrawArrays(GL_LINE_LOOP, 0, outsideVertices.size());
+		glLineWidth(1.0f);
 		_mainShader.bind();
 	}
 }
